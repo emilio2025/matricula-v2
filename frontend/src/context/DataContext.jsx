@@ -33,10 +33,14 @@ export function DataProvider({ children }) {
     let vivo = true;
     setCargando(true);
     setErrorCarga('');
-    Promise.all([cargarPublico(), cargarSolicitudes()])
-      .catch((e) => vivo && setErrorCarga(e.message))
+    let reintento;
+    // Si el backend aún no estaba listo, se reintenta cada 3 s hasta que responda
+    const cargar = () => Promise.all([cargarPublico(), cargarSolicitudes()])
+      .then(() => vivo && setErrorCarga(''))
+      .catch((e) => { if (vivo) { setErrorCarga(e.message); reintento = setTimeout(cargar, 3000); } })
       .finally(() => vivo && setCargando(false));
-    return () => { vivo = false; };
+    cargar();
+    return () => { vivo = false; clearTimeout(reintento); };
   }, [cargarPublico, cargarSolicitudes]);
 
   // Nivel con los costos vigentes (los define dirección en la API)

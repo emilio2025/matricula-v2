@@ -50,7 +50,7 @@ export default function Perfil() {
 
   const input = (obj, set, k, label, props = {}) => (
     <label className={`field ${err[k] ? 'has-error' : ''}`}><span>{label}</span>
-      <input value={obj[k]} onChange={(e) => set({ ...obj, [k]: e.target.value })} {...props} />
+      <input value={obj[k]} onChange={(e) => set({ ...obj, [k]: (props.inputMode === 'numeric' ? e.target.value.replace(/\D/g, '').slice(0, props.maxLength || 20) : e.target.value) })} {...props} />
       {err[k] && <small className="error">{err[k]}</small>}
     </label>
   );

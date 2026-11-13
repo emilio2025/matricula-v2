@@ -116,7 +116,7 @@ export default function NuevaMatricula() {
   const input = (obj, setObj, campo, label, errKey = campo, props = {}) => (
     <label className={`field ${errores[errKey] ? 'has-error' : ''}`}>
       <span>{label}</span>
-      <input value={obj[campo]} onChange={(e) => setObj({ ...obj, [campo]: e.target.value })} {...props} />
+      <input value={obj[campo]} onChange={(e) => setObj({ ...obj, [campo]: (props.inputMode === 'numeric' ? e.target.value.replace(/\D/g, '').slice(0, props.maxLength || 20) : e.target.value) })} {...props} />
       {errores[errKey] && <small className="error">{errores[errKey]}</small>}
     </label>
   );

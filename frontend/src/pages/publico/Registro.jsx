@@ -38,7 +38,7 @@ export default function Registro() {
   const campo = (nombre, label, props = {}) => (
     <label className={`field ${errores[nombre] ? 'has-error' : ''}`}>
       <span>{label}</span>
-      <input value={form[nombre]} onChange={cambiar(nombre)} {...props} />
+      <input value={form[nombre]} onChange={(e) => cambiar(nombre)({ target: { value: (props.inputMode === 'numeric' ? e.target.value.replace(/\D/g, '').slice(0, props.maxLength || 20) : e.target.value) } })} {...props} />
       {errores[nombre] && <small className="error">{errores[nombre]}</small>}
     </label>
   );
