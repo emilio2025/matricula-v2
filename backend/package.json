@@ -1,0 +1,26 @@
+{
+  "name": "matricula-backend",
+  "version": "2.0.0",
+  "private": true,
+  "description": "API REST del sistema de matrícula (V2): Express + MySQL, pago de matrícula con Mercado Pago",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch-path=src --env-file-if-exists=.env src/server.js",
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "db:crear": "node --env-file-if-exists=.env scripts/crear-bd.js",
+    "db:generar": "node scripts/generar-datos.js",
+    "reset": "npm run db:crear"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.24.6",
+    "zod": "^3.25.76"
+  }
+}
